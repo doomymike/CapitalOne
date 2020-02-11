@@ -250,13 +250,19 @@ public class FileManage {
 		return (!x.equals("") && current.length() > x.length() && current.substring(0, x.length()).equals(x));
 	}
 
-	//function that begins
+	//function that begins the check
 	void runner() throws IOException {
 
 		boolean success = false;
-
-		String x = f.getName().substring(f.getName().lastIndexOf(46));
-
+		String x = f.getName();
+		if (!x.contains(".")) {
+			System.out.println("I'm sorry, that does not appear to be a file");
+			return;
+		}
+		 x = x.substring(x.lastIndexOf(46));
+		
+		
+		
 		String singleComm = null;
 		String blockCommStart = null;;
 		String blockCommEnd = null; 
@@ -266,9 +272,10 @@ public class FileManage {
 		String multiStringSymbol2 = null;
 		char escape = 0;
 
-		File language = new File("languages.cfg");
-
+		File language = new File("src/languages.cfg");
+		
 		BufferedReader languageRead = new BufferedReader(new FileReader(language));
+		//reads language information, if available
 		while (languageRead.ready()) {
 			String currentLine = languageRead.readLine();
 			if (currentLine.equals("extention: " + x)) {
@@ -286,7 +293,7 @@ public class FileManage {
 		languageRead.close();
 		if (!success) {
 			System.out.println("I'm sorry, that is not currently a supported language");
-			System.out.println("If you want, you can enter the info in \"languages.txt\"");
+			System.out.println("If you want, you can enter the info in \"languages.cfg\"");
 			return;
 		}
 		l = new Language(x, singleComm, blockCommStart, blockCommEnd, stringSymbol1, stringSymbol2, escape, multiStringSymbol1, multiStringSymbol2);
