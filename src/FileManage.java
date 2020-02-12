@@ -314,9 +314,7 @@ public class FileManage {
 		runner();
 	}
 	public static void main(String[] args) throws IOException {
-		Scanner input = new Scanner(System.in);
-		String fileName = input.nextLine();
-		input.close();
+		String fileName = args[0];
 		FileManage fm = new FileManage(new File(fileName));
 	}
 }
